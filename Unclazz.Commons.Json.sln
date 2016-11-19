@@ -1,0 +1,39 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unclazz.Commons.Json", "Unclazz.Commons.Json\Unclazz.Commons.Json.csproj", "{2E36515B-CD9E-46AC-9E0A-96F590032BBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Unclazz.Commons.Json", "Test.Unclazz.Commons.Json\Test.Unclazz.Commons.Json.csproj", "{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unclazz.Commons.Json.Sample", "Unclazz.Commons.Json.Sample\Unclazz.Commons.Json.Sample.csproj", "{A97603E6-92C3-443B-95E0-9F4D44FC2153}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E36515B-CD9E-46AC-9E0A-96F590032BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E36515B-CD9E-46AC-9E0A-96F590032BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E36515B-CD9E-46AC-9E0A-96F590032BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E36515B-CD9E-46AC-9E0A-96F590032BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A97603E6-92C3-443B-95E0-9F4D44FC2153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A97603E6-92C3-443B-95E0-9F4D44FC2153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A97603E6-92C3-443B-95E0-9F4D44FC2153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A97603E6-92C3-443B-95E0-9F4D44FC2153}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.StandardHeader = $2
+		$2.Text = 
+		$2.IncludeInNewFiles = True
+		version = 1.0.0
+	EndGlobalSection
+EndGlobal

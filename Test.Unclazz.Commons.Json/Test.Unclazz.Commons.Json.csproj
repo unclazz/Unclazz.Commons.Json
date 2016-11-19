@@ -1,0 +1,56 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63BBE41F-E858-4A9A-8159-8CCF8CB1193D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Test.Unclazz.Commons.Json</RootNamespace>
+    <AssemblyName>Test.Unclazz.Commons.Json</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArrayJsonObjectTest.cs" />
+    <Compile Include="BooleanJsonObjectTest.cs" />
+    <Compile Include="JsonObjectBuilderTest.cs" />
+    <Compile Include="JsonObjectTest.cs" />
+    <Compile Include="NullJsonObjectTest.cs" />
+    <Compile Include="NumberJsonObjectTest.cs" />
+    <Compile Include="ObjectJsonObjectTest.cs" />
+    <Compile Include="StringJsonObjectTest.cs" />
+    <Compile Include="Parser\InputTest.cs" />
+    <Compile Include="Parser\ParserTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="InputTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Unclazz.Commons.Json\Unclazz.Commons.Json.csproj">
+      <Project>{2E36515B-CD9E-46AC-9E0A-96F590032BBE}</Project>
+      <Name>Unclazz.Commons.Json</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
