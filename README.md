@@ -4,6 +4,11 @@
 
 ## コンポーネント
 
+### 名前空間
+
+アセンブリ名と同じ`Unclazz.Commons.Json`がメインのコンポーネントが属する名前空間です。JSONの読み込み、組み立て、フォーマットのためAPIが詰まっています。
+一方`Unclazz.Commons.Json.Parser`は前述のAPIが内部的に利用しているパーサが属する名前空間です。一般用途であればこちらを直接利用する必要はないはずです。
+
 ### インターフェース
 
 `IJsonObject`は文字通りJSON形式データの中のオブジェクト──`Object`、`Array`、`String`、`Number`、`Boolean`、`Null`を表わすものです。インスタンスが`Object`型を表わす場合、`IJsonObject#GetProperty(...)`や`IJsonObject#HasProperty(string)`メソッドを通じてそのプロパティにアクセスできます。
