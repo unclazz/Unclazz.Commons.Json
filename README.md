@@ -1,6 +1,6 @@
 # Unclazz.Commons.Json
 
-`Unclazz.Commons.Json`はJSON形式のデータを.NETのアプリケーションから参照・更新するためのライブラリです。v1．0ではJSONのパース、組み立て、そしてフォーマットをサポートしています。
+`Unclazz.Commons.Json`はJSON形式のデータを.NETのアプリケーションから参照・更新するためのライブラリです。v1．0ではJSONのパース、組み立て、そしてフォーマットをサポートしています。アセンブリは[NuGet Galleryで公開](https://www.nuget.org/packages/Unclazz.Commons.Json/)されているので、NuGetを通じて取得することができます。
 
 ## コンポーネント
 
