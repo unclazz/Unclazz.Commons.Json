@@ -1,0 +1,9 @@
+language: csharp
+script:
+  - xbuild /p:Configuration=Debug Unclazz.Commons.Json.sln
+before_install:
+  - sudo apt-get install nunit-console
+before_script:
+  - nuget restore Unclazz.Commons.Json.sln
+after_script:
+  - nunit-console Test.Unclazz.Commons.Json/bin/Debug/Test.Unclazz.Commons.Json.dll
