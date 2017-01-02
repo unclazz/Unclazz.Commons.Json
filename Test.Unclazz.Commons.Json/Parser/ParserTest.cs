@@ -40,10 +40,10 @@ namespace Test.Unclazz.Commons.Json
 			var r3 = p.Parse(Input.FromString(" false "));
 
 			// Assert
-			Assert.That(r0.BooleanValue(), Is.True);
-			Assert.That(r1.BooleanValue(), Is.True);
-			Assert.That(r2.BooleanValue(), Is.False);
-			Assert.That(r3.BooleanValue(), Is.False);
+			Assert.That(r0.AsBoolean(), Is.True);
+			Assert.That(r1.AsBoolean(), Is.True);
+			Assert.That(r2.AsBoolean(), Is.False);
+			Assert.That(r3.AsBoolean(), Is.False);
 		}
 
 		[Test]
@@ -57,8 +57,8 @@ namespace Test.Unclazz.Commons.Json
 			var r1 = p.Parse(Input.FromString(" null "));
 
 			// Assert
-			Assert.That(r0.IsNull, Is.True);
-			Assert.That(r1.IsNull, Is.True);
+			Assert.That(r0.TypeIs(JsonObjectType.Null), Is.True);
+			Assert.That(r1.TypeIs(JsonObjectType.Null), Is.True);
 		}
 
 		[Test]
@@ -74,10 +74,10 @@ namespace Test.Unclazz.Commons.Json
 			var r3 = p.Parse(Input.FromString(" -0.1e+1 "));
 
 			// Assert
-			Assert.That(r0.NumberValue(), Is.EqualTo(0.0));
-			Assert.That(r1.NumberValue(), Is.EqualTo(0.0));
-			Assert.That(r2.NumberValue(), Is.EqualTo(-0.1));
-			Assert.That(r3.NumberValue(), Is.EqualTo(-0.1e+1));
+			Assert.That(r0.AsNumber(), Is.EqualTo(0.0));
+			Assert.That(r1.AsNumber(), Is.EqualTo(0.0));
+			Assert.That(r2.AsNumber(), Is.EqualTo(-0.1));
+			Assert.That(r3.AsNumber(), Is.EqualTo(-0.1e+1));
 		}
 
 		[Test]
@@ -93,14 +93,14 @@ namespace Test.Unclazz.Commons.Json
 			IJsonObject r3 = p.Parse(Input.FromString(" [{} , \"foo\"] "));
 
 			// Assert
-			Assert.That(r0.ArrayValue().Count, Is.EqualTo(2));
-			Assert.That(r0.ArrayValue()[0].NumberValue(), Is.EqualTo(0.0));
-			Assert.That(r0.ArrayValue()[1].BooleanValue(), Is.True);
-			Assert.That(r1.ArrayValue().Count, Is.EqualTo(2));
-			Assert.That(r2.ArrayValue().Count, Is.EqualTo(2));
-			Assert.That(r3.ArrayValue().Count, Is.EqualTo(2));
-			Assert.That(r3.ArrayValue()[0].IsObjectExactly(), Is.True);
-			Assert.That(r3.ArrayValue()[1].StringValue(), Is.EqualTo("foo"));
+			Assert.That(r0.AsArray().Count, Is.EqualTo(2));
+			Assert.That(r0.AsArray()[0].AsNumber(), Is.EqualTo(0.0));
+			Assert.That(r0.AsArray()[1].AsBoolean(), Is.True);
+			Assert.That(r1.AsArray().Count, Is.EqualTo(2));
+			Assert.That(r2.AsArray().Count, Is.EqualTo(2));
+			Assert.That(r3.AsArray().Count, Is.EqualTo(2));
+			Assert.That(r3.AsArray()[0].TypeIs(JsonObjectType.Object), Is.True);
+			Assert.That(r3.AsArray()[1].AsString(), Is.EqualTo("foo"));
 		}
 
 		[Test]
@@ -123,10 +123,13 @@ namespace Test.Unclazz.Commons.Json
 			Assert.That(r2.Properties.Count(), Is.EqualTo(1));
 			Assert.That(r3.Properties.Count(), Is.EqualTo(2));
 			Assert.That(r4.Properties.Count(), Is.EqualTo(2));
-			Assert.That(r4.GetProperty("foo").StringValue(), Is.EqualTo("bar"));
-			Assert.That(r4.GetProperty("baz").BooleanValue(), Is.True);
+			Assert.That(r4.GetProperty("foo").AsString(), Is.EqualTo("bar"));
+			Assert.That(r4.GetProperty("baz").AsBoolean(), Is.True);
 			Assert.That(r5.Properties.Count(), Is.EqualTo(1));
-			Assert.That(r5.GetProperty("foo").GetProperty("bar").GetProperty("baz").IsNull(), Is.True);
+			Assert.That(r5.GetProperty("foo")
+			            .GetProperty("bar")
+			            .GetProperty("baz")
+			            .TypeIs(JsonObjectType.Null), Is.True);
 		}
 	}
 }

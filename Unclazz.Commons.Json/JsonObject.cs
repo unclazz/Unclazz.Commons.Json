@@ -231,47 +231,37 @@ namespace Unclazz.Commons.Json
 			return Of(items.Select(Of));
 		}
 
-		public virtual double NumberValue()
+		public virtual double AsNumber()
 		{
 			throw new ApplicationException("json node does not represent Number value.");
 		}
-		public virtual double NumberValue(double fallback)
+		public virtual double AsNumber(double fallback)
 		{
 			return fallback;
 		}
-		public virtual string StringValue()
+		public virtual string AsString()
 		{
 			throw new ApplicationException("json node does not represent String value.");
 		}
 
-		public virtual string StringValue(string fallback)
+		public virtual string AsString(string fallback)
 		{
 			return fallback;
 		}
 
-		public virtual bool BooleanValue()
+		public virtual bool AsBoolean()
 		{
 			throw new ApplicationException("json node does not represent Boolean value.");
 		}
 
-		public virtual IList<IJsonObject> ArrayValue()
+		public virtual IList<IJsonObject> AsArray()
 		{
 			throw new ApplicationException("json node does not represent Array value.");
 		}
 
-		public virtual IList<IJsonObject> ArrayValue(IList<IJsonObject> fallback)
+		public virtual IList<IJsonObject> AsArray(IList<IJsonObject> fallback)
 		{
 			return fallback;
-		}
-
-		public bool IsNull()
-		{
-			return Type == JsonObjectType.Null;
-		}
-
-		public bool IsObjectExactly()
-		{
-			return Type == JsonObjectType.Object;
 		}
 
 		public bool TypeIs(JsonObjectType type)
@@ -281,7 +271,7 @@ namespace Unclazz.Commons.Json
 
 		public bool HasProperty(string name)
 		{
-			return IsObjectExactly() && PropertyNames.Any((arg) => arg.Equals(name));
+			return TypeIs(JsonObjectType.Object) && PropertyNames.Any((arg) => arg.Equals(name));
 		}
 
 		public IJsonObject GetProperty(string name)
@@ -300,7 +290,7 @@ namespace Unclazz.Commons.Json
 			return HasProperty(name) ? GetProperty(name) : fallback;
 		}
 
-		public virtual bool BooleanValue(bool fallback)
+		public virtual bool AsBoolean(bool fallback)
 		{
 			return fallback;
 		}
@@ -322,7 +312,7 @@ namespace Unclazz.Commons.Json
 		                                 StringBuilder buff,
 		                                 int depth)
 		{
-			if (json.Type != JsonObjectType.Array && !json.IsObjectExactly())
+			if (json.Type != JsonObjectType.Array && !json.TypeIs(JsonObjectType.Object))
 			{
 				buff.Append(json.ToString());
 				return;
@@ -332,7 +322,7 @@ namespace Unclazz.Commons.Json
 			{
 				buff.Append('[');
 				bool empty = true;
-				foreach (IJsonObject item in json.ArrayValue())
+				foreach (IJsonObject item in json.AsArray())
 				{
 					if (empty)
 					{

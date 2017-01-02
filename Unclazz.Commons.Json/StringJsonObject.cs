@@ -9,11 +9,11 @@
 		{
 			this.val = val;
 		}
-		public override string StringValue()
+		public override string AsString()
 		{
 			return val;
 		}
-		public override string StringValue(string fallback)
+		public override string AsString(string fallback)
 		{
 			return val;
 		}

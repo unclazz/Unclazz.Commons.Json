@@ -27,33 +27,33 @@ namespace Test.Unclazz.Commons.Json
 		}
 
 		[Test()]
-		public void IsObjectExactly_ReturnsFalse()
+		public void TypeIs_WhenAppliedToJsonObjectTypeObject_ReturnsFalse()
 		{
 			// Arrange
 			IJsonObject json = JsonObject.Of(true);
 
 			// Act
-			var r = json.IsObjectExactly();
+			var r = json.TypeIs(JsonObjectType.Object);
 
 			// Assert
 			Assert.That(r, Is.False);
 		}
 
 		[Test()]
-		public void IsNull_ReturnsFalse()
+		public void TypeIs_WhenAppliedToJsonObjectTypeNull_ReturnsFalse()
 		{
 			// Arrange
 			IJsonObject json = JsonObject.Of(true);
 
 			// Act
-			var r = json.IsNull();
+			var r = json.TypeIs(JsonObjectType.Null);
 
 			// Assert
 			Assert.That(r, Is.False);
 		}
 
 		[Test()]
-		public void ArrayValue_ThrowsException()
+		public void AsArray_ThrowsException()
 		{
 			// Arrange
 			IJsonObject json = JsonObject.Of(true);
@@ -62,23 +62,23 @@ namespace Test.Unclazz.Commons.Json
 			// Assert
 			Assert.Throws<ApplicationException>(() =>
 			{
-				json.ArrayValue();
+				json.AsArray();
 			});
 		}
 
 		[Test()]
-		public void ArrayValue1_ReturnsFallback()
+		public void AsArray1_ReturnsFallback()
 		{
 			// Arrange
 			IJsonObject json = JsonObject.Of(true);
 
 			// Act
 			// Assert
-			Assert.That(json.ArrayValue(JsonObject.Of("foo", "bar").ArrayValue()).Count, Is.EqualTo(2));
+			Assert.That(json.AsArray(JsonObject.Of("foo", "bar").AsArray()).Count, Is.EqualTo(2));
 		}
 
 		[Test()]
-		public void StringValue_ThrowsException()
+		public void AsString_ThrowsException()
 		{
 			// Arrange
 			IJsonObject json0 = JsonObject.Of(true);
@@ -88,16 +88,16 @@ namespace Test.Unclazz.Commons.Json
 			// Assert
 			Assert.Throws<ApplicationException>(() =>
 			{
-				json0.StringValue();
+				json0.AsString();
 			});
 			Assert.Throws<ApplicationException>(() =>
 			{
-				json1.StringValue();
+				json1.AsString();
 			});
 		}
 
 		[Test()]
-		public void StringValue1_ReturnsFallbackValue()
+		public void AsString1_ReturnsFallbackValue()
 		{
 			// Arrange
 			IJsonObject json0 = JsonObject.Of(true);
@@ -105,12 +105,12 @@ namespace Test.Unclazz.Commons.Json
 
 			// Act
 			// Assert
-			Assert.That(json0.StringValue("foo"), Is.EqualTo("foo"));
-			Assert.That(json1.StringValue("bar"), Is.EqualTo("bar"));
+			Assert.That(json0.AsString("foo"), Is.EqualTo("foo"));
+			Assert.That(json1.AsString("bar"), Is.EqualTo("bar"));
 		}
 
 		[Test()]
-		public void BooleanValue_ReturnsValue()
+		public void AsBoolean_ReturnsValue()
 		{
 			// Arrange
 			IJsonObject json0 = JsonObject.Of(true);
@@ -118,19 +118,19 @@ namespace Test.Unclazz.Commons.Json
 
 			// Act
 			// Assert
-			Assert.That(json0.BooleanValue(), Is.True);
-			Assert.That(json1.BooleanValue(), Is.False);
+			Assert.That(json0.AsBoolean(), Is.True);
+			Assert.That(json1.AsBoolean(), Is.False);
 		}
 
 		[Test()]
-		public void BooleanValue1_IgnoresFallbackValue()
+		public void AsBoolean1_IgnoresFallbackValue()
 		{
 			// Arrange
 			IJsonObject json = JsonObject.Of(false);
 
 			// Act
 			// Assert
-			Assert.That(json.BooleanValue(true), Is.False);
+			Assert.That(json.AsBoolean(true), Is.False);
 		}
 
 		[Test()]
@@ -170,7 +170,7 @@ namespace Test.Unclazz.Commons.Json
 		}
 
 		[Test()]
-		public void NumberValue_ThrowsException()
+		public void AsNumber_ThrowsException()
 		{
 			// Arrange
 			IJsonObject json0 = JsonObject.Of(true);
@@ -178,12 +178,12 @@ namespace Test.Unclazz.Commons.Json
 
 			// Act
 			// Assert
-			Assert.Throws<ApplicationException>(() => json0.NumberValue());
-			Assert.Throws<ApplicationException>(() => json1.NumberValue());
+			Assert.Throws<ApplicationException>(() => json0.AsNumber());
+			Assert.Throws<ApplicationException>(() => json1.AsNumber());
 		}
 
 		[Test()]
-		public void NumberValue_ReturnsFallbackValue()
+		public void AsNumber_ReturnsFallbackValue()
 		{
 			// Arrange
 			IJsonObject json0 = JsonObject.Of(false);
@@ -191,8 +191,8 @@ namespace Test.Unclazz.Commons.Json
 
 			// Act
 			// Assert
-			Assert.That(json0.NumberValue(1), Is.EqualTo(1));
-			Assert.That(json1.NumberValue(2), Is.EqualTo(2));
+			Assert.That(json0.AsNumber(1), Is.EqualTo(1));
+			Assert.That(json1.AsNumber(2), Is.EqualTo(2));
 		}
 
 		[Test()]

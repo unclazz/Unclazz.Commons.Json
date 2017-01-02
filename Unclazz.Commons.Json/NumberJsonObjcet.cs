@@ -9,11 +9,11 @@
 			this.val = val;
 		}
 
-		public override double NumberValue()
+		public override double AsNumber()
 		{
 			return val;
 		}
-		public override double NumberValue(double fallback)
+		public override double AsNumber(double fallback)
 		{
 			return val;
 		}

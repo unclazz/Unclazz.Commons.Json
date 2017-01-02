@@ -19,7 +19,7 @@ namespace Test.Unclazz.Commons.Json
 			var r0 = b0.Build();
 
 			// Assert
-			Assert.That(r0.IsObjectExactly(), Is.True);
+			Assert.That(r0.TypeIs(JsonObjectType.Object), Is.True);
 			Assert.That(r0.ToString(), Is.EqualTo("{}"));
 			Assert.That(r0.Properties.Count(), Is.EqualTo(0));
 		}
@@ -39,7 +39,7 @@ namespace Test.Unclazz.Commons.Json
 			var r3 = b3.Append("foo", new double[] { 1, 2, 3 }).Build();
 
 			// Assert
-			Assert.That(r0.IsObjectExactly(), Is.True);
+			Assert.That(r0.TypeIs(JsonObjectType.Object), Is.True);
 			Assert.That(r0.ToString(), Is.EqualTo("{\"foo\":\"bar\"}"));
 			Assert.That(r0.Properties.Count(), Is.EqualTo(1));
 			Assert.That(r1.ToString(), Is.EqualTo("{\"foo\":[]}"));
@@ -56,7 +56,7 @@ namespace Test.Unclazz.Commons.Json
 			var r0 = b0.Append("foo", "bar").Append("foo", "baz").Build();
 
 			// Assert
-			Assert.That(r0.IsObjectExactly(), Is.True);
+			Assert.That(r0.TypeIs(JsonObjectType.Object), Is.True);
 			Assert.That(r0.ToString(), Is.EqualTo("{\"foo\":\"baz\"}"));
 			Assert.That(r0.Properties.Count(), Is.EqualTo(1));
 		}

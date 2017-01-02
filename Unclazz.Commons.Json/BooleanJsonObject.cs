@@ -8,11 +8,11 @@
 		{
 			this.val = val;
 		}
-		public override bool BooleanValue()
+		public override bool AsBoolean()
 		{
 			return val;
 		}
-		public override bool BooleanValue(bool fallback)
+		public override bool AsBoolean(bool fallback)
 		{
 			return val;
 		}

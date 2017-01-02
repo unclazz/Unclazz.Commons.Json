@@ -43,59 +43,49 @@ namespace Unclazz.Commons.Json
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
-		double NumberValue();
+		double AsNumber();
 		/// <summary>
 		/// このJSONノードが表わす<code>Number</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
-		double NumberValue(double fallback);
+		double AsNumber(double fallback);
 		/// <summary>
 		/// このJSONノードが表わす<code>String</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
-		string StringValue();
+		string AsString();
 		/// <summary>
 		/// このJSONノードが表わす<code>String</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
-		string StringValue(string fallback);
+		string AsString(string fallback);
 		/// <summary>
 		/// このJSONノードが表わす<code>Boolean</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
-		bool BooleanValue();
+		bool AsBoolean();
 		/// <summary>
 		/// このJSONノードが表わす<code>Boolean</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
-		bool BooleanValue(bool fallback);
+		bool AsBoolean(bool fallback);
 		/// <summary>
 		/// このJSONノードが表わす<code>Array</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
-		IList<IJsonObject> ArrayValue();
+		IList<IJsonObject> AsArray();
 		/// <summary>
 		/// このJSONノードが表わす<code>Array</code>型の値を返します.
 		/// </summary>
 		/// <returns>ノードが表わす値.</returns>
 		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
-		IList<IJsonObject> ArrayValue(IList<IJsonObject> fallback);
-		/// <summary>
-		/// このJSONノードが<code>null</code>を表わすものかチェックします.
-		/// </summary>
-		/// <returns><code>null</code>を表わすものだった場合<c>true</c>.</returns>
-		bool IsNull();
-		/// <summary>
-		/// このJSONノードが<code>Object</code>を表わすものかチェックします.
-		/// </summary>
-		/// <returns><code>Object</code>を表わすものだった場合<c>true</c>.</returns>
-		bool IsObjectExactly();
+		IList<IJsonObject> AsArray(IList<IJsonObject> fallback);
 		/// <summary>
 		/// このJSONノードが引数で指定された列挙型インスタンスに対応するものかチェックします.
 		/// </summary>

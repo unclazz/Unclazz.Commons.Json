@@ -13,11 +13,11 @@ namespace Unclazz.Commons.Json
 		{
 			this.items = items;
 		}
-		public override IList<IJsonObject> ArrayValue()
+		public override IList<IJsonObject> AsArray()
 		{
 			return items;
 		}
-		public override IList<IJsonObject> ArrayValue(IList<IJsonObject> fallback)
+		public override IList<IJsonObject> AsArray(IList<IJsonObject> fallback)
 		{
 			return items;
 		}

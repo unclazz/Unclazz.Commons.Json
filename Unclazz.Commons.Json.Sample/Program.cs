@@ -13,9 +13,9 @@ namespace Unclazz.Commons.Json.Sample
 			// NOTE: GetPropery() and XxxxValue() methods have another version 
 			// that can be specified fallback value.
 			Console.WriteLine("j1 = {0}", j1);
-			Console.WriteLine("foo = {0}", j1.GetProperty("foo").NumberValue());
-			Console.WriteLine("bar = {0}", j1.GetProperty("bar").BooleanValue());
-			Console.WriteLine("baz = {0}", j1.GetProperty("baz").StringValue());
+			Console.WriteLine("foo = {0}", j1.GetProperty("foo").AsNumber());
+			Console.WriteLine("bar = {0}", j1.GetProperty("bar").AsBoolean());
+			Console.WriteLine("baz = {0}", j1.GetProperty("baz").AsString());
 			Console.WriteLine("baa exists? = {0}", j1.HasProperty("baa"));
 
 			// 2. Build JSON
