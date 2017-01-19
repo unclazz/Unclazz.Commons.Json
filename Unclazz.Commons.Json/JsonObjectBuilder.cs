@@ -100,7 +100,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (buildAction == null)
 			{
-				throw new ArgumentNullException(nameof(buildAction));
+				throw new ArgumentNullException("buildAction");
 			}
 			var b = new JsonObjectBuilder();
 			buildAction(b);
@@ -201,18 +201,18 @@ namespace Unclazz.Commons.Json
 		{
 			if (name == null)
 			{
-				throw new ArgumentNullException(nameof(name));
+				throw new ArgumentNullException("name");
 			}
 			if (value == null)
 			{
-				throw new ArgumentNullException(nameof(value));
+				throw new ArgumentNullException("value");
 			}
 			Name = name;
 			Value = value;
 		}
 
-		public string Name { get; }
-		public IJsonObject Value { get; }
+        public string Name { get; private set; }
+        public IJsonObject Value { get; private set; }
 	}
 }
 

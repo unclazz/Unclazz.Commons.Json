@@ -14,10 +14,10 @@ namespace Unclazz.Commons.Json
 			return new JsonFormatOptionsBuilder();
 		}
 
-		public bool Indent { get; }
-		public string NewLine { get; }
-		public bool SoftTabs { get; }
-		public int TabWidth { get; }
+        public bool Indent { get; private set; }
+        public string NewLine { get; private set; }
+        public bool SoftTabs { get; private set; }
+        public int TabWidth { get; private set; }
 		internal JsonFormatOptions(bool i, string n, bool s, int t)
 		{
 			if (t <= 0)

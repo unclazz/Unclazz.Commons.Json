@@ -7,30 +7,37 @@ namespace Unclazz.Commons.Json.Parser
 	/// </summary>
 	public sealed class ParseException : Exception
 	{
-		/// <summary>
+        private readonly string message;
+        /// <summary>
 		/// パース処理の入力オブジェクト
 		/// </summary>
-		public Input Input { get; }
+        public Input Input { get; private set; }
 		/// <summary>
 		/// 例外メッセージ
 		/// </summary>
-		public override string Message { get; }
+        public override string Message
+        {
+            get
+            {
+                return message;
+            }
+        }
 		private readonly Exception cause;
 
 		public ParseException(Input input)
 		{
 			Input = input;
-			Message = MakeMessage(input, "error has occurred.");
+            message = MakeMessage(input, "error has occurred.");
 		}
 		public ParseException(Input input, string message)
 		{
 			Input = input;
-			Message = MakeMessage(input, message);
+            message = MakeMessage(input, message);
 		}
 		public ParseException(Input input, string message, Exception cause)
 		{
 			Input = input;
-			Message = MakeMessage(input, message);
+            message = MakeMessage(input, message);
 			this.cause = cause;
 		}
 		public override Exception GetBaseException()

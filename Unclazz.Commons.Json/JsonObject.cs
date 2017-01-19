@@ -104,7 +104,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (val == null)
 			{
-				throw new ArgumentNullException(nameof(val));
+				throw new ArgumentNullException("val");
 			}
 			return val.Length == 0 ? emptyString : new StringJsonObject(val);
 		}
@@ -140,7 +140,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("items");
 			}
 			IList<IJsonObject> l = items.ToList().AsReadOnly();
 			return l.Count == 0 ? emptyArray : new ArrayJsonObject(l);
@@ -153,7 +153,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("items");
 			}
 			IList<IJsonObject> l = items.ToList().AsReadOnly();
 			return l.Count == 0 ? emptyArray : new ArrayJsonObject(l);
@@ -166,7 +166,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("items");
 			}
 			return Of(items.Select(Of));
 		}
@@ -178,7 +178,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("names");
 			}
 			return Of(items.Select(Of));
 		}
@@ -190,7 +190,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("names");
 			}
 			return Of(items.Select(Of));
 		}
@@ -202,7 +202,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("names");
 			}
 			return Of(items.Select(Of));
 		}
@@ -214,7 +214,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("names");
 			}
 			return Of(items.Select(Of));
 		}
@@ -226,7 +226,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException(nameof(items));
+				throw new ArgumentNullException("names");
 			}
 			return Of(items.Select(Of));
 		}
@@ -396,7 +396,7 @@ namespace Unclazz.Commons.Json
 			buff.Append(opts.NewLine);
 		}
 
-		public JsonObjectType Type { get; }
+        public JsonObjectType Type { get; private set; }
 
 		public virtual IEnumerable<IJsonProperty> Properties
 		{
