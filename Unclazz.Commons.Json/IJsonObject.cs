@@ -147,7 +147,30 @@ namespace Unclazz.Commons.Json
 	/// </summary>
 	public enum JsonObjectType
 	{
-		Null, String, Number, Boolean, Array, Object
+        /// <summary>
+        /// Null型
+        /// </summary>
+		Null, 
+        /// <summary>
+        /// String型
+        /// </summary>
+        String, 
+        /// <summary>
+        /// Number型
+        /// </summary>
+        Number, 
+        /// <summary>
+        /// Boolean型
+        /// </summary>
+        Boolean, 
+        /// <summary>
+        /// Array型
+        /// </summary>
+        Array, 
+        /// <summary>
+        /// Object型
+        /// </summary>
+        Object
 	}
 }
 

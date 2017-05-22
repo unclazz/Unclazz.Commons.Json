@@ -76,6 +76,12 @@ namespace Unclazz.Commons.Json
 		{
 			return parser.Parse(Input.FromFile(path));
 		}
+        /// <summary>
+        /// ストリームからJSONを読み取ります.
+        /// </summary>
+        /// <returns>読み取り結果.</returns>
+        /// <param name="stream">ストリーム.</param>
+        /// <param name="enc">エンコーディング.</param>
 		public static IJsonObject FromStream(Stream stream, Encoding enc)
 		{
 			return parser.Parse(Input.FromStream(stream, enc));
@@ -104,7 +110,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (val == null)
 			{
-				throw new ArgumentNullException("val");
+                throw new ArgumentNullException(nameof(val));
 			}
 			return val.Length == 0 ? emptyString : new StringJsonObject(val);
 		}
@@ -140,7 +146,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("items");
+                throw new ArgumentNullException(nameof(items));
 			}
 			IList<IJsonObject> l = items.ToList().AsReadOnly();
 			return l.Count == 0 ? emptyArray : new ArrayJsonObject(l);
@@ -153,7 +159,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("items");
+                throw new ArgumentNullException(nameof(items));
 			}
 			IList<IJsonObject> l = items.ToList().AsReadOnly();
 			return l.Count == 0 ? emptyArray : new ArrayJsonObject(l);
@@ -166,7 +172,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("items");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
@@ -178,7 +184,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("names");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
@@ -190,7 +196,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("names");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
@@ -202,7 +208,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("names");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
@@ -214,7 +220,7 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("names");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
@@ -226,54 +232,107 @@ namespace Unclazz.Commons.Json
 		{
 			if (items == null)
 			{
-				throw new ArgumentNullException("names");
+                throw new ArgumentNullException(nameof(items));
 			}
 			return Of(items.Select(Of));
 		}
 
+		/// <summary>
+		/// このJSONノードが表わす<code>Number</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
 		public virtual double AsNumber()
 		{
 			throw new ApplicationException("json node does not represent Number value.");
 		}
+		/// <summary>
+		/// このJSONノードが表わす<code>Number</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
 		public virtual double AsNumber(double fallback)
 		{
 			return fallback;
 		}
+		/// <summary>
+		/// このJSONノードが表わす<code>String</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
 		public virtual string AsString()
 		{
 			throw new ApplicationException("json node does not represent String value.");
 		}
-
+		/// <summary>
+		/// このJSONノードが表わす<code>String</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
 		public virtual string AsString(string fallback)
 		{
 			return fallback;
 		}
-
+		/// <summary>
+		/// このJSONノードが表わす<code>Boolean</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
 		public virtual bool AsBoolean()
 		{
 			throw new ApplicationException("json node does not represent Boolean value.");
 		}
-
+		/// <summary>
+		/// このJSONノードが表わす<code>Boolean</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
+		public virtual bool AsBoolean(bool fallback)
+		{
+			return fallback;
+		}
+		/// <summary>
+		/// このJSONノードが表わす<code>Array</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <exception cref="System.ApplicationException">このノードが別の型を表している場合.</exception>
 		public virtual IList<IJsonObject> AsArray()
 		{
 			throw new ApplicationException("json node does not represent Array value.");
 		}
-
+		/// <summary>
+		/// このJSONノードが表わす<code>Array</code>型の値を返します.
+		/// </summary>
+		/// <returns>ノードが表わす値.</returns>
+		/// <param name="fallback">このノードが別の型を表している場合に返される値.</param>
 		public virtual IList<IJsonObject> AsArray(IList<IJsonObject> fallback)
 		{
 			return fallback;
 		}
-
+		/// <summary>
+		/// このJSONノードが引数で指定された列挙型インスタンスに対応するものかチェックします.
+		/// </summary>
+		/// <returns>引数で指定された列挙型インスタンスに対応するものだった場合<c>true</c>.</returns>
+		/// <param name="type">Type.</param>
 		public bool TypeIs(JsonObjectType type)
 		{
 			return Type == type;
 		}
-
+		/// <summary>
+		/// このJSONノードが指定された名前のプロパティを持つかどうかチェックします.
+		/// </summary>
+		/// <returns>指定された名前のプロパティを持つ場合<c>true</c>.</returns>
+		/// <param name="name">Name.</param>
 		public bool HasProperty(string name)
 		{
 			return TypeIs(JsonObjectType.Object) && PropertyNames.Any((arg) => arg.Equals(name));
 		}
-
+		/// <summary>
+		/// このJSONノードが持つプロパティのうち指定された名前のプロパティを返します.
+		/// 指定された名前のプロパティが存在しない場合は例外をスローします.
+		/// </summary>
+		/// <returns>プロパティ値.</returns>
+		/// <param name="name">プロパティ名.</param>
 		public IJsonObject GetProperty(string name)
 		{
 			IJsonProperty r = Properties.FirstOrDefault((arg) => arg.Name.Equals(name));
@@ -284,17 +343,21 @@ namespace Unclazz.Commons.Json
 			}
 			return r.Value;
 		}
-
+		/// <summary>
+		/// このJSONノードが持つプロパティのうち指定された名前のプロパティを返します.
+		/// 指定された名前のプロパティが存在しない場合は引数で指定されたデフォルト値を返します.
+		/// </summary>
+		/// <returns>プロパティ値.</returns>
+		/// <param name="name">プロパティ名.</param>
+		/// <param name="fallback">デフォルト値.</param>
 		public IJsonObject GetProperty(string name, IJsonObject fallback)
 		{
 			return HasProperty(name) ? GetProperty(name) : fallback;
 		}
-
-		public virtual bool AsBoolean(bool fallback)
-		{
-			return fallback;
-		}
-
+		/// <summary>
+		/// このJSONノードの整形されたリテラル表現を返します.
+		/// </summary>
+		/// <param name="opts">整形オプション.</param>
 		public string Format(IJsonFormatOptions opts)
 		{
 			if (opts.Indent)
@@ -395,9 +458,15 @@ namespace Unclazz.Commons.Json
 			}
 			buff.Append(opts.NewLine);
 		}
-
-        public JsonObjectType Type { get; private set; }
-
+		/// <summary>
+		/// このJSONノードのデータ型を示す列挙型にアクセスします.
+		/// </summary>
+		/// <value>データ型を示す列挙型にアクセス.</value>
+		public JsonObjectType Type { get; private set; }
+		/// <summary>
+		/// このJSONノードの持つプロパティを要素とする<code>IEnumerable&lt;T></code>にアクセスします.
+		/// </summary>
+		/// <value>プロパティを要素とする<code>IEnumerable&lt;T></code>.</value>
 		public virtual IEnumerable<IJsonProperty> Properties
 		{
 			get
@@ -405,7 +474,10 @@ namespace Unclazz.Commons.Json
 				return Enumerable.Empty<IJsonProperty>();
 			}
 		}
-
+		/// <summary>
+		/// このJSONノードの持つプロパティ名を要素とする<code>IEnumerable&lt;T></code>にアクセスします.
+		/// </summary>
+		/// <value>プロパティ名を要素とする<code>IEnumerable&lt;T></code>.</value>
 		public IEnumerable<string> PropertyNames
 		{
 			get
@@ -413,7 +485,10 @@ namespace Unclazz.Commons.Json
 				return Properties.Select((arg) => arg.Name);
 			}
 		}
-
+		/// <summary>
+		/// このJSONノードの持つプロパティ値を要素とする<code>IEnumerable&lt;T></code>にアクセスします.
+		/// </summary>
+		/// <value>プロパティ値を要素とする<code>IEnumerable&lt;T></code>.</value>
 		public IEnumerable<IJsonObject> PropertyValues
 		{
 			get
@@ -421,12 +496,16 @@ namespace Unclazz.Commons.Json
 				return Properties.Select((arg) => arg.Value);
 			}
 		}
-
-		public IJsonObject this[string propertyName]
+		/// <summary>
+		/// このJSONノードが持つプロパティのうち指定された名前のプロパティを返します.
+		/// 指定された名前のプロパティが存在しない場合は例外をスローします.
+		/// </summary>
+		/// <param name="name">プロパティ名.</param>
+		public IJsonObject this[string name]
 		{
 			get
 			{
-				return GetProperty(propertyName);
+                return GetProperty(name);
 			}
 		}
 
