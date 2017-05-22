@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Unclazz.Commons.Json</id><!--id>$id$</id-->
-    <version>1.2.0.0</version><!--version>$version$</version-->
+    <version>1.2.0.1</version><!--version>$version$</version-->
     <!--title>$title$</title-->
     <authors>unclazz.org</authors><!--authors>$author$</authors-->
     <!--owners>$author$</owners-->
@@ -17,7 +17,10 @@
   </metadata>
   <files>
     <file src="bin/Release/net40/Unclazz.Commons.Json.dll" target="lib/net40"/>
+    <file src="bin/Release/net40/Unclazz.Commons.Json.xml" target="lib/net40"/>
     <file src="bin/Release/net45/Unclazz.Commons.Json.dll" target="lib/net45"/>
+    <file src="bin/Release/net45/Unclazz.Commons.Json.xml" target="lib/net45"/>
     <file src="bin/Release/net46/Unclazz.Commons.Json.dll" target="lib/net46"/>
+    <file src="bin/Release/net46/Unclazz.Commons.Json.xml" target="lib/net46"/>
   </files>
 </package>
