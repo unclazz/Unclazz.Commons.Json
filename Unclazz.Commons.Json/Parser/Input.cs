@@ -371,17 +371,39 @@ namespace Unclazz.Commons.Json.Parser
 				throw new ParseException(this, "io error.", e);
 			}
 		}
-
+        /// <summary>
+        /// このオブジェクトの文字列表現を返す.
+        /// </summary>
+        /// <returns>文字列表現.</returns>
 		public override string ToString()
 		{
 			return string.Format("Input(Source={0},LineNumber={1},ColumnNumer={2})",
 				reader, LineNumber, ColumnNumber);
 		}
-
+        /// <summary>
+        /// このオブジェクトが使用しているアンマネージド・リソースを解放する.
+        /// </summary>
 		public void Dispose()
 		{
-			reader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
 		}
+        private bool disposed = false;
+        private void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    reader.Dispose();
+                }
+            }
+            disposed = true;
+        }
+        ~Input()
+        {
+            Dispose(false);
+        }
 	}
 }
 
