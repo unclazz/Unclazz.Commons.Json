@@ -22,27 +22,35 @@ namespace Unclazz.Commons.Json.Parser
                 return message;
             }
         }
-		private readonly Exception cause;
-
+        /// <summary>
+        /// コンストラクタ.
+        /// </summary>
+        /// <param name="input">例外発生時の<see cref="Input"/>インスタンス.</param>
 		public ParseException(Input input)
 		{
 			Input = input;
             message = MakeMessage(input, "error has occurred.");
 		}
+        /// <summary>
+        /// コンストラクタ.
+        /// </summary>
+        /// <param name="input">例外発生時の<see cref="Input"/>インスタンス.</param>
+        /// <param name="message">メッセージ.</param>
 		public ParseException(Input input, string message)
 		{
 			Input = input;
             message = MakeMessage(input, message);
 		}
-		public ParseException(Input input, string message, Exception cause)
+        /// <summary>
+        /// コンストラクタ.
+        /// </summary>
+        /// <param name="input">例外発生時の<see cref="Input"/>インスタンス.</param>
+        /// <param name="message">メッセージ.</param>
+        /// <param name="cause">原因となった例外.</param>
+		public ParseException(Input input, string message, Exception cause) : base(message, cause)
 		{
 			Input = input;
             message = MakeMessage(input, message);
-			this.cause = cause;
-		}
-		public override Exception GetBaseException()
-		{
-			return cause;
 		}
 		private string MakeMessage(Input input, string message)
 		{

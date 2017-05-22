@@ -400,6 +400,9 @@ namespace Unclazz.Commons.Json.Parser
             }
             disposed = true;
         }
+        /// <summary>
+        /// GCにともない呼び出されるファイナライザ.
+        /// </summary>
         ~Input()
         {
             Dispose(false);
