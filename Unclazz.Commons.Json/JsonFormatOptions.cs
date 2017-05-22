@@ -14,9 +14,25 @@ namespace Unclazz.Commons.Json
 			return new JsonFormatOptionsBuilder();
 		}
 
+        /// <summary>
+        /// インデントを行うかどうかを示します.
+        /// </summary>
+        /// <value>インデントを行う場合<c>true</c>.</value>
         public bool Indent { get; private set; }
+        /// <summary>
+        /// 改行に使用する文字列を示します.
+        /// </summary>
+        /// <value>文字列.</value>
         public string NewLine { get; private set; }
+        /// <summary>
+        /// ソフトタブを使用するかどうかを示します.
+        /// </summary>
+        /// <value>ソフトタブを使用する場合<c>true</c>.</value>
         public bool SoftTabs { get; private set; }
+        /// <summary>
+        /// タブ幅を示します.
+        /// </summary>
+        /// <value>タブ幅.</value>
         public int TabWidth { get; private set; }
 		internal JsonFormatOptions(bool i, string n, bool s, int t)
 		{
