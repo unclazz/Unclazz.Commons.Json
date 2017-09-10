@@ -149,6 +149,7 @@ namespace Test.Unclazz.Commons.Json
             // Assert
             Assert.That(json["foo"].AsNumber(), Is.EqualTo(123));
             Assert.That(json["bar"].AsString(), Is.EqualTo("456\"/\\\b\f\n\r\t𪚲X"));
+            Assert.That(json["baz"].AsString(), Is.EqualTo("789\r\nX")); // 仕様外
         }
 
     }
