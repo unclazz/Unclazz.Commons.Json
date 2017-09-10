@@ -2,14 +2,21 @@
 using System.Linq;
 using Unclazz.Commons.Json.Parser;
 using Unclazz.Commons.Json;
+using System.IO;
 
 namespace Test.Unclazz.Commons.Json
 {
 	[TestFixture]
 	public class ParserTest
 	{
+        private string GetTestProjectDirectory()
+        {
+            string binDebug = NUnit.Framework.TestContext
+                .CurrentContext.TestDirectory;
+            return System.IO.Directory.GetParent(binDebug).Parent.FullName;
+        }
 
-		[Test]
+        [Test]
 		public void Parse_WhenApplyToEmptyString_ThrowsException()
 		{
 			// Arrange
@@ -131,5 +138,18 @@ namespace Test.Unclazz.Commons.Json
 			            .GetProperty("baz")
 			            .TypeIs(JsonObjectType.Null), Is.True);
 		}
-	}
+
+        [Test]
+        public void Parse_CanProcessContentOfJsonFileProperly()
+        {
+            // Arrange
+            // Act
+            var json = JsonObject.FromFile(Path.Combine(GetTestProjectDirectory(), "Test.json"));
+
+            // Assert
+            Assert.That(json["foo"].AsNumber(), Is.EqualTo(123));
+            Assert.That(json["bar"].AsString(), Is.EqualTo("456\"/\\\b\f\n\r\t𪚲X"));
+        }
+
+    }
 }

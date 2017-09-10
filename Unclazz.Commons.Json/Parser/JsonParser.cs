@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -75,10 +76,127 @@ namespace Unclazz.Commons.Json.Parser
 					input.GoNext();
 					return buff.ToString();
 				}
-				buff.Append(c1 != '\\' ? c1 : input.GoNext());
-			}
+                // エスケープシーケンスの始まりに該当するかチェック
+                if (c1 == '\\')
+                {
+                    // 該当する場合
+                    // エスケープシーケンスを読み取りバッファに追加する
+                    ParseEscapeSequenceAndAppendtoBuff(input, buff);
+                }
+                else
+                {
+                    // 該当しない場合
+                    // その文字をそのままバッファに追加する
+                    buff.Append(c1);
+                }
+            }
 			throw new ParseException(input, "syntax error. unclosed quoted string.");
 		}
+        void ParseEscapeSequenceAndAppendtoBuff(Input input, StringBuilder buff)
+        {
+            // 次の文字を読取る
+            var curr = input.GoNext();
+            // Unicodeエスケープシーケンスに該当するかチェック
+            if (curr == 'u')
+            {
+                // 該当する場合
+                // シーケンスを読み取ってバッファに追加
+                buff.Append(ParseEscapedUnicode(input));
+            }
+            else
+            {
+                // 該当しない場合
+                // シーケンスの照応する文字をバッファに追加
+                buff.Append(ResolveSimpleEscapeSequece(input));
+            }
+        }
+        char ResolveSimpleEscapeSequece(Input input)
+        {
+            var x = input.Current;
+            switch (x) // options: ", /, \, b, f, n, r and t. except u.
+            {
+                case '"':
+                case '/':
+                case '\\':
+                    return x;
+                case 'b':
+                    return '\b';
+                case 'f':
+                    return '\f';
+                case 'n':
+                    return '\n';
+                case 'r':
+                    return '\r';
+                case 't':
+                    return '\t';
+                default:
+                    throw new ParseException(input, string.Format(
+                        "syntax error. unknown escape sequence \"\\{0}\".", x));
+            }
+        }
+        string ParseEscapedUnicode(Input input)
+        {
+            // 1つ目の\uXXXX（のXXXX）を読み取る
+            var mayHighSurrogate = Parse4HexDigits(input);
+            // 読み取り結果が「上位サロゲート」に該当するかチェック
+            if (IsHighSurrogate(mayHighSurrogate))
+            {
+                // 該当する場合
+                // 2つ目の\uXXXXを読み取る
+                input.GoNext(); input.Check('\\');
+                input.GoNext(); input.Check('u');
+                // XXXXは「下位サロゲート」（であるはず）
+                var lowSurrogate = Parse4HexDigits(input);
+                // 上位サロゲートと下位サロゲートからUnicodeのコードポイントを計算
+                var pt = (mayHighSurrogate - 0xD800) * 0x400 + (lowSurrogate - 0xDC00) + 0x10000;
+                // 文字列化して返す（charの範囲をオーバーしているからstringで表現される）
+                return char.ConvertFromUtf32(pt);
+            }
+            else
+            {
+                // 該当しない場合
+                // そのまま独立した文字として返す
+                return char.ConvertFromUtf32(mayHighSurrogate);
+            }
+        }
+        int Parse4HexDigits(Input input)
+        {
+            // 読み取り結果を順次アサインする変数
+            var tmp = 0;
+            // ループで4文字だけ読み取る
+            for (var i = 0; i < 4; i++)
+            {
+                // 前回ループでアサインされた数値に16を乗じて桁上げする
+                tmp *= 16;
+                // 次の1文字読み取る。16進数であるはず
+                var hexDigit = input.GoNext();
+                // 文字の範囲ごとに適切な計算を行って整数化する
+                if ('0' <= hexDigit && hexDigit <= '9')
+                {
+                    // 0～9であればコードポイントを減ずるだけでそのまま照応する整数になる
+                    tmp += hexDigit - '0';
+                }
+                else if ('A' <= hexDigit && hexDigit <= 'F')
+                {
+                    // A～FであればAのコードポイントを減じて、10を加えると照応する整数になる
+                    tmp += hexDigit - 'A' + 10;
+                }
+                else if ('a' <= hexDigit && hexDigit <= 'f')
+                {
+                    // a～fであればaのコードポイントを減じて、10を加えると照応する整数になる
+                    tmp += hexDigit - 'a' + 10;
+                }
+                else
+                {
+                    throw new ParseException(input, "syntax error. invalid character as hex-digit.");
+                }
+            }
+            return tmp;
+        }
+        bool IsHighSurrogate(int i)
+        {
+            return 0xD800 <= i && i <= 0xDBFF;
+        }
 		string ParseIdentifierString(Input input)
 		{
 			StringBuilder buff = new StringBuilder();

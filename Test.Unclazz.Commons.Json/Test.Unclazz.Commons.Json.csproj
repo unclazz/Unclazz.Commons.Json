@@ -46,8 +46,9 @@
     <Compile Include="Parser\ParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="InputTest.txt" />
+    <None Include="packages.config" />
+    <None Include="Test.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Unclazz.Commons.Json\Unclazz.Commons.Json.csproj">
