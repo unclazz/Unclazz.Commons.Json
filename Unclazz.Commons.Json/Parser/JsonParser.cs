@@ -76,43 +76,13 @@ namespace Unclazz.Commons.Json.Parser
 					input.GoNext();
 					return buff.ToString();
 				}
-                // エスケープシーケンスの始まりに該当するかチェック
-                if (c1 == '\\')
-                {
-                    // 該当する場合
-                    // エスケープシーケンスを読み取りバッファに追加する
-                    ParseEscapeSequenceAndAppendtoBuff(input, buff);
-                }
-                else
-                {
-                    // 該当しない場合
-                    // その文字をそのままバッファに追加する
-                    buff.Append(c1);
-                }
+                buff.Append(c1 == '\\' ? ParseEscapeSequence(input) : c1);
             }
 			throw new ParseException(input, "syntax error. unclosed quoted string.");
 		}
-        void ParseEscapeSequenceAndAppendtoBuff(Input input, StringBuilder buff)
+        char ParseEscapeSequence(Input input)
         {
-            // 次の文字を読取る
-            var curr = input.GoNext();
-            // Unicodeエスケープシーケンスに該当するかチェック
-            if (curr == 'u')
-            {
-                // 該当する場合
-                // シーケンスを読み取ってバッファに追加
-                buff.Append(ParseEscapedUnicode(input));
-            }
-            else
-            {
-                // 該当しない場合
-                // シーケンスの照応する文字をバッファに追加
-                buff.Append(ResolveSimpleEscapeSequece(input));
-            }
-        }
-        char ResolveSimpleEscapeSequece(Input input)
-        {
-            var x = input.Current;
+            var x = input.GoNext();
             switch (x) // options: ", /, \, b, f, n, r and t. except u.
             {
                 case '"':
@@ -129,34 +99,11 @@ namespace Unclazz.Commons.Json.Parser
                     return '\r';
                 case 't':
                     return '\t';
+                case 'u':
+                    return (char)Parse4HexDigits(input);
                 default:
                     throw new ParseException(input, string.Format(
                         "syntax error. unknown escape sequence \"\\{0}\".", x));
-            }
-        }
-        string ParseEscapedUnicode(Input input)
-        {
-            // 1つ目の\uXXXX（のXXXX）を読み取る
-            var mayHighSurrogate = Parse4HexDigits(input);
-            // 読み取り結果が「上位サロゲート」に該当するかチェック
-            if (IsHighSurrogate(mayHighSurrogate))
-            {
-                // 該当する場合
-                // 2つ目の\uXXXXを読み取る
-                input.GoNext(); input.Check('\\');
-                input.GoNext(); input.Check('u');
-                // XXXXは「下位サロゲート」（であるはず）
-                var lowSurrogate = Parse4HexDigits(input);
-                // 上位サロゲートと下位サロゲートからUnicodeのコードポイントを計算
-                var pt = (mayHighSurrogate - 0xD800) * 0x400 + (lowSurrogate - 0xDC00) + 0x10000;
-                // 文字列化して返す（charの範囲をオーバーしているからstringで表現される）
-                return char.ConvertFromUtf32(pt);
-            }
-            else
-            {
-                // 該当しない場合
-                // そのまま独立した文字として返す
-                return char.ConvertFromUtf32(mayHighSurrogate);
             }
         }
         int Parse4HexDigits(Input input)
@@ -192,10 +139,6 @@ namespace Unclazz.Commons.Json.Parser
                 }
             }
             return tmp;
-        }
-        bool IsHighSurrogate(int i)
-        {
-            return 0xD800 <= i && i <= 0xDBFF;
         }
 		string ParseIdentifierString(Input input)
 		{
